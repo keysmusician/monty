@@ -9,13 +9,24 @@
 ## Table of Contents
 * [About](#about)
 * [Usage](#usage)
+* [Opcodes](#opcodes)
 * [Files](#files)
 * [Authors](#authors)
+
 
 ## About
 A bytecode interpreter for the Monty scripting language.
 
 ## Usage
+
+## Opcodes
+* `add`
+* `nop`
+* `pall`
+* `pint`
+* `pop`
+* `push`
+* `swap`
 
 ## Files
 
