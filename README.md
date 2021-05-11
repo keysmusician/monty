@@ -4,7 +4,8 @@
   </a>
 </p>
 
-# Monty
+# Monty Bytecode Interpreter
+Interpreter for Monty bytecode files.
 
 ## Table of Contents
 * [About](#about)
@@ -13,12 +14,11 @@
 * [Authors](#authors)
 
 ## About
-A bytecode interpreter for the Monty scripting language.
+The Monty Btyecode Interpreter is a **command interpreter** for **Monty bytecode.** **Monty 0.98** is the scripting language that is compiled into Monty bytecodes.
 
 ## Usage
 
 ## Files
-
 
 ## Authors
 Justin Masayda [@keysmusician](https://github.com/keysmusician)
