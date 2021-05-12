@@ -35,16 +35,9 @@ typedef struct instruction_s
 } instruction_t;
 extern stack_t *stack;
 
-<<<<<<< HEAD
 void get_function(char **args, unsigned int line_number);
 void push(stack_t **head, int n);
 void pall(stack_t **stack, unsigned int line_number);
-=======
-void get_function(char **args);
-stack_t *push(stack_t **head, unsigned int n);
-int pushcheck(char **args, int idx);
-int pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **, unsigned int);
->>>>>>> 4d4e5088ae871180ca50e907d6dc45727cd0b896
 
 #endif /* MONTY_H */
