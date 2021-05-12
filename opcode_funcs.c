@@ -18,8 +18,8 @@ void get_function(char **args)
         y++;
     }
     if (strcmp(f_table[y].opcode, "push") == 0)
-    {
-        if (pushcheck(&args, y) == 0)
+    {   
+        if (pushcheck(args, y) == 0)
         {
             printf("pushcheck success\n");
             push_number = atoi(args[y + 1]);
@@ -34,7 +34,7 @@ void get_function(char **args)
     {
         if (f_table[y].opcode != '\0')
         {
-            f_table[y].f;
+            f_table[y].f(stack, y);
             printf("implemented %s", f_table[y].opcode);
         }
         else
@@ -48,10 +48,10 @@ void get_function(char **args)
  * @n: new integer
  * Return: address of the new element
  */
-stack_t *push(stack_t **head, const int n)
+stack_t *push(stack_t **stack, unsigned int n)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
-	stack_t *current_node = *head;
+	stack_t *current_node = *stack;
 
 	if (new_node == NULL)
 	{
@@ -64,9 +64,9 @@ stack_t *push(stack_t **head, const int n)
 		return (NULL);
 	}
 	new_node->next = NULL;
-	if (*head == NULL)
+	if (*stack == NULL)
 	{
-		*head = new_node;
+		*stack = new_node;
 		return (new_node);
 	}
 	while (current_node->next)
@@ -86,11 +86,11 @@ stack_t *push(stack_t **head, const int n)
  */
 int pushcheck(char **args, int idx)
 {
-    if (args[idx] != '\0')
+    if (args[idx])
     {
-        if (args[idx + 1] != '\0')
+        if (args[idx + 1])
         {
-            if (atoi(args[idx + 1]) != 0 && args[idx + 1] != '0')
+            if (atoi(args[idx + 1]) != 0 && strcmp(args[idx + 1], "0"))
             {
                 return (0);
             }
@@ -102,7 +102,7 @@ int pushcheck(char **args, int idx)
  * pall - prints the entire stack from head to tail
  * Return: the number of nodes
  */
-int pall(void)
+int pall(stack_t **stack, unsigned int line_number)
 {
     int iter = 0;
 	stack_t *node = stack;
