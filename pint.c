@@ -21,7 +21,9 @@ void pint(stack_t **stack, unsigned int line_number)
  * @stack: address of stack head pointer
  * @line_number: line number this command was called on
  */
+/*
 void pint(stack_t **stack, unsigned int line_number)
 {
 	return;
 }
+*/

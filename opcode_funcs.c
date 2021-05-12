@@ -11,15 +11,16 @@ void get_function(char **args, unsigned int line_number)
     void (*opcode_func)(stack_t **, unsigned int);
     instruction_t f_table[] = {
         {"pall", pall},
+        {"pint", pint},
         {"", NULL}};
 
     if (strcmp(args[0], "push") == 0)
     {
         if (atoi(args[1]) != 0 || strcmp(args[1], "0") == 0)
         {
-            printf("pushcheck success\n");
             push_number = atoi(args[1]);
             push(&stack, push_number);
+            printf("push success\n");
         }
         else
         {
@@ -27,7 +28,7 @@ void get_function(char **args, unsigned int line_number)
         }
         return;
     }
-    while (!f_table[y].f && strcmp(f_table[y].opcode, args[0]) != 0 )
+    while (f_table[y].f && strcmp(f_table[y].opcode, args[0]) != 0 )
         y++;
     printf("y is %d\n", y);
     opcode_func = f_table[y].f;
