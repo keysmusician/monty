@@ -22,7 +22,7 @@ void get_function(char **args)
         if (pushcheck(&args, y) == 0)
         {
             printf("pushcheck success\n");
-            push_number = atoi(args[idx + 1]);
+            push_number = atoi(args[y + 1]);
             push(&stack, push_number);
         }
         else
@@ -30,7 +30,16 @@ void get_function(char **args)
             printf("pushcheck failure\n");
         }
     }
-
+    else
+    {
+        if (f_table[y].opcode != '\0')
+        {
+            f_table[y].f;
+            printf("implemented %s", f_table[y].opcode);
+        }
+        else
+            printf("implemented NULL");
+    }
 }
 
 /**
