@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 		printf("main: Token 1: %s\n", tokens[0]);
 		printf("main: Token 2: %s\n\n", tokens[1]);
 
-		get_function(tokens);
+		get_function(tokens, linecount);
 
 		/* Continue reading lines until EOF */
 		chars_read = getline(&line, &buffsize, bytecode);
