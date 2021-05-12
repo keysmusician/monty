@@ -39,5 +39,5 @@ void get_function(char **args, unsigned int line_number);
 void push(stack_t **head, int n);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **, unsigned int);
-
+void nop(stack_t **stack, unsigned int line_number);
 #endif /* MONTY_H */

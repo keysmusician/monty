@@ -12,6 +12,7 @@ void get_function(char **args, unsigned int line_number)
     instruction_t f_table[] = {
         {"pall", pall},
         {"pint", pint},
+        {"nop", nop},
         {"", NULL}};
 
     if (strcmp(args[0], "push") == 0)
