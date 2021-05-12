@@ -98,4 +98,25 @@ int pushcheck(char **args, int idx)
     }
     return (1);
 }
+/**
+ * pall - prints the entire stack from head to tail
+ * Return: the number of nodes
+ */
+int pall(void)
+{
+    int iter = 0;
+	stack_t *node = stack;
 
+    if (!node)
+    {
+        printf("node allocation failed in pall()\n");
+        return (0);
+    }
+	while (node)
+	{
+		printf("%d\n", node->n);
+		node = node->next;
+		iter++;
+	}
+	return (iter);
+}
