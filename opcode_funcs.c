@@ -1,28 +1,24 @@
 #include "monty.h"
-
+stack_t *stack = NULL;
 /**
  * get_function - get the appropriate function
  * @c: identifier for function
  */
-void get_function(char **args)
+void get_function(char **args, unsigned int line_number)
 {
     int y = 0;
     int push_number;
+    void (*opcode_func)(stack_t **, unsigned int);
     instruction_t f_table[] = {
-        {"push", push},
         {"pall", pall},
         {'\0', NULL}};
 
-    while (strcmp(f_table[y].opcode, args[y]) != 0 && f_table[y].opcode != '\0')
+    if (strcmp(args[0], "push") == 0)
     {
-        y++;
-    }
-    if (strcmp(f_table[y].opcode, "push") == 0)
-    {   
-        if (pushcheck(args, y) == 0)
+        if (atoi(args[1]) != 0 || strcmp(args[1], "0") == 0)
         {
             printf("pushcheck success\n");
-            push_number = atoi(args[y + 1]);
+            push_number = atoi(args[1]);
             push(&stack, push_number);
         }
         else
@@ -30,93 +26,61 @@ void get_function(char **args)
             printf("pushcheck failure\n");
         }
     }
-    else
+    while (f_table[y].opcode != args[0] && f_table[y].f)
+        y++;
+    opcode_func = f_table[y].f;
+    if (!opcode_func)
     {
-        if (f_table[y].opcode != '\0')
-        {
-            f_table[y].f(stack, y);
-            printf("implemented %s", f_table[y].opcode);
-        }
-        else
-            printf("implemented NULL");
+        fprintf(stderr, "L%i: unknown instruction %s\n", line_number, args[0]);
+        exit(EXIT_FAILURE);
     }
+    opcode_func(&stack, line_number);
 }
 
 /**
- * push - add node at the end
+ * push - add node at the beginning
  * @head: head
  * @n: new integer
- * Return: address of the new element
  */
-stack_t *push(stack_t **stack, unsigned int n)
+void push(stack_t **head, int n)
 {
-	stack_t *new_node = malloc(sizeof(stack_t));
-	stack_t *current_node = *stack;
+    stack_t *new_node = malloc(sizeof(stack_t));
 
-	if (new_node == NULL)
-	{
-		return (NULL);
-	}
-	new_node->n = n;
-	if (new_node->n != 0 && !new_node->n)
-	{
-		free(new_node);
-		return (NULL);
-	}
-	new_node->next = NULL;
-	if (*stack == NULL)
-	{
-		*stack = new_node;
-		return (new_node);
-	}
-	while (current_node->next)
-	{
-		current_node = current_node->next;
-	}
-	current_node->next = new_node;
-	new_node->prev = current_node;
-	return (new_node);
-}
-
-/**
- * pushcheck - checks if the information is correct for pushing to stack
- * @args: arguments from strtok
- * @idx: index of argument
- * Return: 0 for success. 1 for failure
- */
-int pushcheck(char **args, int idx)
-{
-    if (args[idx])
+    if (!head)
     {
-        if (args[idx + 1])
-        {
-            if (atoi(args[idx + 1]) != 0 && strcmp(args[idx + 1], "0"))
-            {
-                return (0);
-            }
-        }
+        fprintf(stderr, "head does not exist\n");
+        return;
     }
-    return (1);
+    if (new_node == NULL)
+    {
+        fprintf(stderr, "Error: malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
+    new_node->n = n;
+    new_node->next = *head;
+    new_node->prev = NULL;
+    *head = new_node;
 }
+
 /**
  * pall - prints the entire stack from head to tail
- * Return: the number of nodes
+ * @stack: stack
+ * @line_number: line number
  */
-int pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 {
-    int iter = 0;
-	stack_t *node = stack;
+    int iter = line_number;
+    stack_t *node = *stack;
 
+    iter = 0;
     if (!node)
     {
         printf("node allocation failed in pall()\n");
-        return (0);
     }
-	while (node)
-	{
-		printf("%d\n", node->n);
-		node = node->next;
-		iter++;
-	}
-	return (iter);
+    while (node)
+    {
+        printf("%d\n", node->n);
+        node = node->next;
+        iter++;
+    }
 }
