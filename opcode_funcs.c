@@ -11,7 +11,7 @@ void get_function(char **args, unsigned int line_number)
     void (*opcode_func)(stack_t **, unsigned int);
     instruction_t f_table[] = {
         {"pall", pall},
-        {'\0', NULL}};
+        {"", NULL}};
 
     if (strcmp(args[0], "push") == 0)
     {
@@ -25,11 +25,14 @@ void get_function(char **args, unsigned int line_number)
         {
             printf("pushcheck failure\n");
         }
+        return;
     }
-    while (f_table[y].opcode != args[0] && f_table[y].f)
+    while (!f_table[y].f && strcmp(f_table[y].opcode, args[0]) != 0 )
         y++;
+    printf("y is %d\n", y);
     opcode_func = f_table[y].f;
-    if (!opcode_func)
+    printf("get_function: opcode == %s\n", f_table[y].opcode);
+    if (!f_table[y].opcode)
     {
         fprintf(stderr, "L%i: unknown instruction %s\n", line_number, args[0]);
         exit(EXIT_FAILURE);
