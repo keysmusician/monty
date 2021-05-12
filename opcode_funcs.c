@@ -19,26 +19,22 @@ void get_function(char **args)
     }
     if (strcmp(f_table[y].opcode, "push") == 0)
     {
-        if (args[y] != '\0')
+        if (pushcheck(&args, y) == 0)
         {
-            if (args[y + 1] != '\0')
-            {
-                if (atoi(args[y + 1]) != 0 && args[y + 1] != '0')
-                {
-                    push_number = atoi(args[y + 1]);
-                    push(&stack, push_number);
-                }
-            }
+            printf("pushcheck success\n");
+            push_number = atoi(args[idx + 1]);
+            push(&stack, push_number);
         }
+        else
         {
-            if (args)
+            printf("pushcheck failure\n");
         }
     }
 
 }
 
 /**
- * add_dnodeint_end - add node at the end
+ * push - add node at the end
  * @head: head
  * @n: new integer
  * Return: address of the new element
@@ -74,9 +70,23 @@ stack_t *push(stack_t **head, const int n)
 }
 
 /**
- * push - pushes onto stack in FILO order
- * @
+ * pushcheck - checks if the information is correct for pushing to stack
+ * @args: arguments from strtok
+ * @idx: index of argument
+ * Return: 0 for success. 1 for failure
  */
-void push(va_list argumen)
+int pushcheck(char **args, int idx)
 {
+    if (args[idx] != '\0')
+    {
+        if (args[idx + 1] != '\0')
+        {
+            if (atoi(args[idx + 1]) != 0 && args[idx + 1] != '0')
+            {
+                return (0);
+            }
+        }
+    }
+    return (1);
 }
+
