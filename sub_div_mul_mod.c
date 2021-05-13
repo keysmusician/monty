@@ -19,7 +19,7 @@ void sub(stack_t **head, unsigned int line_number)
 }
 
 /**
- * div - divides the value of the top two elements of the stack
+ * _div - divides the value of the top two elements of the stack
  * @head: address of stack head pointer
  * @line_number: line number
  */
@@ -31,12 +31,12 @@ void _div(stack_t **head, unsigned int line_number)
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
-    if ((*head)->n == 0)
-    {
+	if ((*head)->n == 0)
+	{
 		fprintf(stderr,	"L%i: division by zero\n", line_number);
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
-    }
+	}
 	(*head)->next->n = (*head)->next->n / (*head)->n;
 	*head = (*head)->next;
 	free((*head)->prev);
@@ -75,12 +75,12 @@ void mod(stack_t **head, unsigned int line_number)
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
-    if ((*head)->n == 0)
-    {
+	if ((*head)->n == 0)
+	{
 		fprintf(stderr,	"L%i: division by zero\n", line_number);
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
-    }
+	}
 
 	(*head)->next->n = (*head)->next->n + (*head)->n;
 	*head = (*head)->next;

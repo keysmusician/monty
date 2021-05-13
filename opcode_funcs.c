@@ -13,16 +13,11 @@ void get_function(char **tokens, unsigned int line_number)
 	char *opcode = tokens[0], *push_arg = tokens[1];
 	void (*opcode_func)(stack_t **, unsigned int);
 	instruction_t f_table[] = {
-		{"pall", pall},
-		{"pint", pint},
-		{"nop", nop},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-        {"sub", sub},
-        {"mul", mul},
-        {"div", _div},
-        {"mod", mod},
+		{"pall", pall}, {"pint", pint},
+		{"nop", nop}, {"pop", pop},
+		{"swap", swap}, {"add", add},
+		{"sub", sub}, {"mul", mul},
+		{"div", _div}, {"mod", mod},
 		{"", NULL}
 	};
 
