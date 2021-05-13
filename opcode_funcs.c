@@ -25,17 +25,21 @@ void get_function(char **tokens, unsigned int line_number)
 	if (handle_push(opcode, push_arg, line_number))
 		return;
 
-	while (f_table[y].f && strcmp(f_table[y].opcode, opcode) != 0)
-		y++;
-	/* printf("y is %d\n", y); */
-	opcode_func = f_table[y].f;
-	/* printf("get_function: opcode == %s\n", f_table[y].opcode); */
-	if (!opcode_func) /* No opcode match */
+	while (f_table[y].f)
 	{
-		fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
-		exit(EXIT_FAILURE);
+		/* printf("get_function: opcode == %s\n", f_table[y].opcode); */
+		if (strcmp(f_table[y].opcode, opcode) == 0)
+		{
+			opcode_func = f_table[y].f;
+			opcode_func(&stack, line_number);
+			return;
+		}
+		y++;
+		/* printf("y is %d\n", y); */
 	}
-	opcode_func(&stack, line_number);
+	/* No opcode match */
+	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
+	exit(EXIT_FAILURE);
 }
 
 /**

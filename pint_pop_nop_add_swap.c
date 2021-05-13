@@ -24,7 +24,7 @@ void pint(stack_t **stack, unsigned int line_number)
 void nop(stack_t **stack __attribute__((unused)),
 	unsigned int line_number __attribute__((unused)))
 {
-	return;
+
 }
 
 /**
@@ -32,9 +32,14 @@ void nop(stack_t **stack __attribute__((unused)),
  * @stack: address of stack head pointer
  * @line_number: line number this command was called on
  */
-/*
 void pop(stack_t **stack, unsigned int line_number)
 {
-	return;
+	if (!stack || !*stack)
+	{
+		fprintf(stderr,	"L%i: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	*stack = (*stack)->next;
+	free((*stack)->prev);
 }
-*/
