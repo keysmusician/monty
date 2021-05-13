@@ -22,7 +22,7 @@ void get_function(char **tokens, unsigned int line_number)
 		{"", NULL}
 	};
 
-	if (!opcode)
+	if (!opcode || strcmp(opcode, "#") == 0)
 		return;
 
 	if (handle_push(opcode, push_arg, line_number))
@@ -60,22 +60,16 @@ void get_function(char **tokens, unsigned int line_number)
  */
 int handle_push(char *opcode, char *push_arg, unsigned int line_number)
 {
-	int push_number;
-
 	if (strcmp("push", opcode) != 0)
 		return (0); /* Return if opcode is not "push" */
 
-	if (push_arg)
+	if (push_arg && only_digits(push_arg))
 	{
-		push_number = atoi(push_arg);
-		if (push_number != 0 || strcmp(push_arg, "0") == 0)
-		{
-			push(&stack, push_number);
+		push(&stack, atoi(push_arg));
 #if DEBUG
 			printf("push success\n");
 #endif
-			return (1);
-		}
+		return (1);
 	}
 	fprintf(stderr, "L%i: usage: push integer\n", line_number);
 	free_all(NULL, NULL);

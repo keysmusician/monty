@@ -41,6 +41,7 @@ void free_stack(stack_t *head);
 void free_all(char **buffer_address, FILE **bytecode_file);
 void get_function(char **, unsigned int);
 int handle_push(char *opcode, char *push_arg, unsigned int line_number);
+int only_digits(const char *str);
 
 void push(stack_t **, int);
 void pall(stack_t **, unsigned int);
