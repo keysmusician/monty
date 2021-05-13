@@ -43,6 +43,7 @@ void pop(stack_t **head, unsigned int line_number)
     {
     	*head = (*head)->next;
     	free((*head)->prev);
+        (*head)->prev = NULL;
     }
     else
         free(*head);
@@ -55,7 +56,15 @@ void pop(stack_t **head, unsigned int line_number)
  */
 void swap(stack_t **head, unsigned int line_number)
 {
+    int temp = (*head)->next->n;
 
+	if (!head || !*head || !((*head)->next))
+	{
+		fprintf(stderr,	"L%i: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+    (*head)->next->n = (*head)->n;
+    (*head)->n = temp;
 }
 
 /**
@@ -65,5 +74,13 @@ void swap(stack_t **head, unsigned int line_number)
  */
 void add(stack_t **head, unsigned int line_number)
 {
-
+	if (!head || !*head || !((*head)->next))
+	{
+		fprintf(stderr,	"L%i: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+    (*head)->next->n = (*head)->next->n + (*head)->n;
+    *head = (*head)->next;
+    free((*head)->prev);
+    (*head)->prev = NULL;
 }
