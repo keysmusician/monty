@@ -17,6 +17,7 @@ void get_function(char **tokens, unsigned int line_number)
 		{"pall", pall},
 		{"pint", pint},
 		{"nop", nop},
+        {"pop", pop},
 		{"", NULL}
 	};
 
