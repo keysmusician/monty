@@ -38,7 +38,9 @@ void get_function(char **tokens, unsigned int line_number)
 			return;
 		}
 		y++;
+#if DEBUG
 		/* printf("y is %d\n", y); */
+#endif
 	}
 	/* No opcode match */
 	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
