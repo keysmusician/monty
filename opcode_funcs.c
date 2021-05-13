@@ -1,4 +1,5 @@
 #include "monty.h"
+#define DEBUG 0
 
 stack_t *stack = NULL;
 
@@ -27,7 +28,9 @@ void get_function(char **tokens, unsigned int line_number)
 
 	while (f_table[y].f)
 	{
+#if DEBUG
 		/* printf("get_function: opcode == %s\n", f_table[y].opcode); */
+#endif
 		if (strcmp(f_table[y].opcode, opcode) == 0)
 		{
 			opcode_func = f_table[y].f;
@@ -63,7 +66,9 @@ int handle_push(char *opcode, char *push_arg, unsigned int line_number)
 		if (push_number != 0 || strcmp(push_arg, "0") == 0)
 		{
 			push(&stack, push_number);
+#if DEBUG
 			printf("push success\n");
+#endif
 			return (1);
 		}
 	}
