@@ -3,7 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 
-
+/**
+ * main - main loop for monty bytecode interpreter
+ * @argc: command line argument count
+ * @argv: command line arguments
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
+ */
 int main(int argc, char **argv)
 {
 	FILE *bytecode; /* File pointer to the file containing bytecode */
@@ -11,7 +16,7 @@ int main(int argc, char **argv)
 	size_t buffsize; /* Line buffer size */
 	char *bytecode_path; /* Path of the bytecode file, entered by user */
 	char *line = NULL; /* A single line of bytecode */
-	char *tokens[] = {NULL, NULL, NULL}; /* First 2 tokens of line, NULL terminated*/
+	char *tokens[] = {NULL, NULL, NULL}; /* First 2 tokens of line & NULL */
 
 	if (argc != 2) /* Check correct number of arguments */
 	{ /* If user did not specify one file, print error and exit */
@@ -33,17 +38,16 @@ int main(int argc, char **argv)
 	while (chars_read != -1) /* If line was valid*/
 	{
 		/* Print line */
-		printf("main: L%d: %s", ++linecount, line);
+		/* printf("main: L%d: %s", ++linecount, line); */
 		tokens[0] = strtok(line, " \n\t");
 		tokens[1] = strtok(NULL, " \n\t");
-		printf("main: Token 1: %s\n", tokens[0]);
-		printf("main: Token 2: %s\n\n", tokens[1]);
+		/* printf("main: Token 1: [%s] Token 2: [%s]\n", tokens[0], tokens[1]); */
 
-		get_function(tokens, linecount);
+		get_function(tokens, ++linecount);
 
 		/* Continue reading lines until EOF */
 		chars_read = getline(&line, &buffsize, bytecode);
 	}
 
-	return (0);
+	return (EXIT_SUCCESS);
 }
