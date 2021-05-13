@@ -19,6 +19,10 @@ void get_function(char **tokens, unsigned int line_number)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+        {"sub", sub},
+        {"mul", mul},
+        {"div", _div},
+        {"mod", mod},
 		{"", NULL}
 	};
 
