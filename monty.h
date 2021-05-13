@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define DEBUG 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,6 +37,7 @@ typedef struct instruction_s
 
 extern stack_t *stack;
 
+void free_stack(stack_t *head);
 void get_function(char **, unsigned int);
 int handle_push(char *opcode, char *push_arg, unsigned int line_number);
 

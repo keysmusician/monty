@@ -23,7 +23,6 @@ int main(int argc, char **argv)
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-
 	/* Open the bytecode file */
 	bytecode_path = argv[1];
 	bytecode = fopen(bytecode_path, "r");
@@ -32,8 +31,8 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", bytecode_path);
 		exit(EXIT_FAILURE);
 	}
-
 	/* Read a line from the file */
+	get_buff_addr(&line);
 	chars_read = getline(&line, &buffsize, bytecode);
 	while (chars_read != -1) /* If line was valid*/
 	{
@@ -48,6 +47,8 @@ int main(int argc, char **argv)
 		/* Continue reading lines until EOF */
 		chars_read = getline(&line, &buffsize, bytecode);
 	}
-
+	fclose(bytecode);
+	free(line);
+	free_stack(stack);
 	return (EXIT_SUCCESS);
 }

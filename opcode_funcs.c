@@ -1,5 +1,4 @@
 #include "monty.h"
-#define DEBUG 0
 
 stack_t *stack = NULL;
 
@@ -29,7 +28,7 @@ void get_function(char **tokens, unsigned int line_number)
 	while (f_table[y].f)
 	{
 #if DEBUG
-		/* printf("get_function: opcode == %s\n", f_table[y].opcode); */
+		printf("get_function: opcode == %s\n", f_table[y].opcode);
 #endif
 		if (strcmp(f_table[y].opcode, opcode) == 0)
 		{
@@ -39,11 +38,12 @@ void get_function(char **tokens, unsigned int line_number)
 		}
 		y++;
 #if DEBUG
-		/* printf("y is %d\n", y); */
+		printf("y is %d\n", y);
 #endif
 	}
 	/* No opcode match */
 	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
+	free_stack(stack);
 	exit(EXIT_FAILURE);
 }
 
@@ -75,6 +75,7 @@ int handle_push(char *opcode, char *push_arg, unsigned int line_number)
 		}
 	}
 	fprintf(stderr, "L%i: usage: push integer\n", line_number);
+	free_stack(stack);
 	exit(EXIT_FAILURE);
 }
 
@@ -96,6 +97,7 @@ void push(stack_t **head, int n)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = n;
@@ -118,4 +120,19 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	for (node = *stack; node; node = node->next)
 		printf("%d\n", node->n);
+}
+
+/**
+ * free_stack - frees a doubly linked list
+ * @head: head node of doubly linked list
+ */
+void free_stack(stack_t *head)
+{
+	stack_t *node_i, *next;
+
+	for (node_i = head; node_i; node_i = next)
+	{
+		next = node_i->next;
+		free(node_i);
+	}
 }
