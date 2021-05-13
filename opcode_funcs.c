@@ -16,9 +16,9 @@ void get_function(char **tokens, unsigned int line_number)
 		{"pall", pall},
 		{"pint", pint},
 		{"nop", nop},
-        {"pop", pop},
-        {"swap", swap},
-        {"add", add},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
 		{"", NULL}
 	};
 
@@ -46,7 +46,7 @@ void get_function(char **tokens, unsigned int line_number)
 	}
 	/* No opcode match */
 	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
-	free_stack(stack);
+	free_all(NULL, NULL);
 	exit(EXIT_FAILURE);
 }
 
@@ -78,7 +78,7 @@ int handle_push(char *opcode, char *push_arg, unsigned int line_number)
 		}
 	}
 	fprintf(stderr, "L%i: usage: push integer\n", line_number);
-	free_stack(stack);
+	free_all(NULL, NULL);
 	exit(EXIT_FAILURE);
 }
 
@@ -94,18 +94,21 @@ void push(stack_t **head, int n)
 	if (!head)
 	{
 		fprintf(stderr, "push: NULL stack head address\n");
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_stack(*head);
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = n;
 	new_node->next = *head;
 	new_node->prev = NULL;
+	if (*head)
+		(*head)->prev = new_node;
 	*head = new_node;
 }
 

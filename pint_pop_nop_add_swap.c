@@ -10,6 +10,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	if (!stack || !*stack)
 	{
 		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
 
@@ -29,7 +30,7 @@ void nop(stack_t **stack __attribute__((unused)),
 
 /**
  * pop - pop the value at the top of the stack
- * @stack: address of stack head pointer
+ * @head: address of stack head pointer
  * @line_number: line number this command was called on
  */
 void pop(stack_t **head, unsigned int line_number)
@@ -37,39 +38,44 @@ void pop(stack_t **head, unsigned int line_number)
 	if (!head || !*head)
 	{
 		fprintf(stderr,	"L%i: can't pop an empty stack\n", line_number);
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
-    if ((*head)->next)
-    {
-    	*head = (*head)->next;
-    	free((*head)->prev);
-        (*head)->prev = NULL;
-    }
-    else
-        free(*head);
+	if ((*head)->next)
+	{
+		*head = (*head)->next;
+		free((*head)->prev);
+		(*head)->prev = NULL;
+	}
+	else
+	{
+		free(*head);
+		*head = NULL;
+	}
 }
 
 /**
  * swap - swap the value of the top two elements of the stack
- * @stack: address of stack head pointer
+ * @head: address of stack head pointer
  * @line_number: line number
  */
 void swap(stack_t **head, unsigned int line_number)
 {
-    int temp = (*head)->next->n;
+	int temp = (*head)->next->n;
 
 	if (!head || !*head || !((*head)->next))
 	{
 		fprintf(stderr,	"L%i: can't add, stack too short\n", line_number);
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
-    (*head)->next->n = (*head)->n;
-    (*head)->n = temp;
+	(*head)->next->n = (*head)->n;
+	(*head)->n = temp;
 }
 
 /**
  * add - adds the value of the top two elements of the stack
- * @stack: address of stack head pointer
+ * @head: address of stack head pointer
  * @line_number: line number
  */
 void add(stack_t **head, unsigned int line_number)
@@ -77,10 +83,11 @@ void add(stack_t **head, unsigned int line_number)
 	if (!head || !*head || !((*head)->next))
 	{
 		fprintf(stderr,	"L%i: can't add, stack too short\n", line_number);
+		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
-    (*head)->next->n = (*head)->next->n + (*head)->n;
-    *head = (*head)->next;
-    free((*head)->prev);
-    (*head)->prev = NULL;
+	(*head)->next->n = (*head)->next->n + (*head)->n;
+	*head = (*head)->next;
+	free((*head)->prev);
+	(*head)->prev = NULL;
 }
