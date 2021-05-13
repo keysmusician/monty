@@ -43,7 +43,7 @@ void push(stack_t **, int);
 void pall(stack_t **, unsigned int);
 void pint(stack_t **, unsigned int);
 void nop(stack_t **, unsigned int);
-void pop(stack_t **stack, unsigned int line_number);
+void pop(stack_t **, unsigned int);
 
 
 #endif /* MONTY_H */

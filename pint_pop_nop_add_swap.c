@@ -32,14 +32,38 @@ void nop(stack_t **stack __attribute__((unused)),
  * @stack: address of stack head pointer
  * @line_number: line number this command was called on
  */
-void pop(stack_t **stack, unsigned int line_number)
+void pop(stack_t **head, unsigned int line_number)
 {
-	if (!stack || !*stack)
+	if (!head || !*head)
 	{
 		fprintf(stderr,	"L%i: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+    if ((*head)->next)
+    {
+    	*head = (*head)->next;
+    	free((*head)->prev);
+    }
+    else
+        free(*head);
+}
 
-	*stack = (*stack)->next;
-	free((*stack)->prev);
+/**
+ * swap - swap the value of the top two elements of the stack
+ * @stack: address of stack head pointer
+ * @line_number: line number
+ */
+void swap(stack_t **head, unsigned int line_number)
+{
+
+}
+
+/**
+ * add - adds the value of the top two elements of the stack
+ * @stack: address of stack head pointer
+ * @line_number: line number
+ */
+void add(stack_t **head, unsigned int line_number)
+{
+
 }
