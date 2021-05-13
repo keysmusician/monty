@@ -30,7 +30,7 @@ void get_function(char **tokens, unsigned int line_number)
 	/* printf("y is %d\n", y); */
 	opcode_func = f_table[y].f;
 	/* printf("get_function: opcode == %s\n", f_table[y].opcode); */
-	if (!f_table[y].opcode) /* No opcode match */
+	if (!opcode_func) /* No opcode match */
 	{
 		fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
 		exit(EXIT_FAILURE);
