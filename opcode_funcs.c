@@ -21,7 +21,7 @@ void get_function(char **tokens, unsigned int line_number)
 		{"", NULL}
 	};
 
-	if (!opcode || strcmp(opcode, "#") == 0)
+	if (!opcode || strcmp(opcode[0], "#") == 0)
 		return;
 
 	if (handle_push(opcode, push_arg, line_number))
