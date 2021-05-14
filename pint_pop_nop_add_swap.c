@@ -65,7 +65,7 @@ void swap(stack_t **head, unsigned int line_number)
 
 	if (!head || !*head || !((*head)->next))
 	{
-		fprintf(stderr,	"L%i: can't add, stack too short\n", line_number);
+		fprintf(stderr,	"L%i: can't swap, stack too short\n", line_number);
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
