@@ -8,12 +8,21 @@
  */
 int only_digits(const char *str)
 {
-	size_t i;
+	size_t i = 0;
+	int status = 0;
 
-	for (i = 0; str[i]; i++)
+	if (!str)
+		return (0);
+
+	if (str[0] == '-')
+		i++;
+
+	for (; str[i]; i++)
 	{
 		if (!isdigit(str[i]))
 			return (0);
+		status = 1;
 	}
-	return (1);
+
+	return (status);
 }
