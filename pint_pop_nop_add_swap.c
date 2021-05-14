@@ -61,7 +61,7 @@ void pop(stack_t **head, unsigned int line_number)
  */
 void swap(stack_t **head, unsigned int line_number)
 {
-	int temp = (*head)->next->n;
+	int temp;
 
 	if (!head || !*head || !((*head)->next))
 	{
@@ -69,6 +69,7 @@ void swap(stack_t **head, unsigned int line_number)
 		free_all(NULL, NULL);
 		exit(EXIT_FAILURE);
 	}
+	temp = (*head)->next->n;
 	(*head)->next->n = (*head)->n;
 	(*head)->n = temp;
 }
